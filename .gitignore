@@ -1,0 +1,5 @@
+# internal service directory
+api-auth/
+api-message/
+
+.env
