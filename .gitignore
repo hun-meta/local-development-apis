@@ -5,4 +5,5 @@ api-message/
 # database
 mariadb/data/
 
+# environment variables
 .env

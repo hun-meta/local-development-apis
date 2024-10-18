@@ -1,0 +1,55 @@
+services:
+  # internal auth service
+  api-auth:
+    build:
+      context: ./api-auth/
+      dockerfile: docker/development/Dockerfile
+    image: api-auth-development:latest
+    depends_on:
+      - api-message
+      - mariadb
+    container_name: api-auth-development
+    platform: ${SERVER_PLATFORM}
+    ports:
+      - "3000:3000"
+    environment: # This configuration can override the settings in the Dockerfile.
+      - PORT=3000
+    volumes:
+      - ./api-auth/logs:/app/logs
+    command: ["npm", "run", "start:dev"] # Also can override the settings in the Dockerfile.
+
+  # internal message service
+  api-message:
+    build:
+      context: ./api-message/
+      dockerfile: docker/development/Dockerfile
+    image: api-message-development:latest
+    depends_on:
+      - mariadb
+    container_name: api-message-development
+    platform: ${SERVER_PLATFORM}
+    ports:
+      - "3001:3000"
+    environment:
+      - PORT=3000
+    volumes:
+      - ./api-message/logs:/app/logs
+    command: ["npm", "run", "start:dev"] 
+
+  # Main Database
+  mariadb:
+    image: mariadb:10.11.6
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mariadb/data:/var/lib/mysql
+
+networks:
+  default:
