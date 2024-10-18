@@ -2,4 +2,7 @@
 api-auth/
 api-message/
 
+# database
+mariadb/data/
+
 .env
