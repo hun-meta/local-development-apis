@@ -1,17 +1,17 @@
-# For local machine Development Test
-.PHONY: build-development
-build-development: ## Build the development docker image.
+# For local machine Development Test for all services
+.PHONY: build-dev-all
+build-dev-all: ## Build the development docker image.
 	docker compose -f ./docker-compose.yml build
 
-.PHONY: start-development
-start-development: ## Start the development docker container.
+.PHONY: start-dev-all
+start-dev-all: ## Start the development docker container.
 	docker compose -f ./docker-compose.yml up -d
 
-.PHONY: stop-development
-stop-development: ## Stop the development docker container.
+.PHONY: stop-dev-all
+stop-dev-all: ## Stop the development docker container.
 	docker compose -f ./docker-compose.yml stop
 	./clean_none_images.sh
 
-.PHONY: delete-development
-delete-development: ## Stop and Delete Volumes of development docker container.
+.PHONY: delete-dev-all
+delete-dev-all: ## Stop and Delete Volumes of development docker container.
 	docker compose -f ./docker-compose.yml stop
