@@ -1,6 +1,7 @@
 # internal service directory
 api-auth/
 api-message/
+api-id/
 
 # database
 mariadb/data/
