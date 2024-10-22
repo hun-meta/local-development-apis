@@ -2,6 +2,7 @@
 api-auth/
 api-message/
 api-id/
+api-base-template/
 
 # database
 mariadb/data/
