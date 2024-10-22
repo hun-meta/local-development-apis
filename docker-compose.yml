@@ -9,6 +9,7 @@ services:
       - api-message
       - mariadb
     container_name: api-auth-development
+    restart: no
     platform: ${SERVER_PLATFORM}
     ports:
       - "3000:3000"
@@ -27,6 +28,7 @@ services:
     depends_on:
       - mariadb
     container_name: api-message-development
+    restart: no
     platform: ${SERVER_PLATFORM}
     ports:
       - "3001:3000"
@@ -40,7 +42,7 @@ services:
   mariadb:
     image: mariadb:10.11.6
     container_name: mariadb
-    restart: always
+    restart: no
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
