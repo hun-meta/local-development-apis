@@ -7,6 +7,7 @@ services:
     image: api-auth-development:latest
     depends_on:
       - api-message
+      - api-id
       - mariadb
     container_name: api-auth-development
     restart: no
@@ -36,7 +37,24 @@ services:
       - PORT=3000
     volumes:
       - ./api-message/logs:/app/logs
-    command: ["npm", "run", "start:dev"] 
+    command: ["npm", "run", "start:dev"]
+
+  # internal id generator service
+  api-id:
+    build:
+      context: ./api-id/
+      dockerfile: docker/development/Dockerfile
+    image: api-id-development:latest
+    container_name: api-id-development
+    platform: ${SERVER_PLATFORM}
+    ports:
+      - "3002:3000"
+    environment: # This configuration can override the settings in the Dockerfile.
+      - PORT=3000
+      - HOST_IP=${HOST_IP}
+    volumes:
+      - ./api-message/logs:/app/logs
+    command: ["npm", "run", "start:dev"] # Also can override the settings in the Dockerfile.
 
   # Main Database
   mariadb:

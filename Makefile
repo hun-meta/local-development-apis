@@ -1,3 +1,6 @@
+# Get HOST_IP for ID generator
+export HOST_IP := $(shell ip -4 route get 8.8.8.8 | awk '{print $$7}' | tr -d '\n')
+
 # For local machine Development Test for all services
 .PHONY: build-dev-all
 build-dev-all: ## Build the development docker image.
