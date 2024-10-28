@@ -1,0 +1,19 @@
+services:
+
+  # Main Database
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: no
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql
+
+networks:
+  default:
